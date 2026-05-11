@@ -1,3 +1,29 @@
+<script setup>
+const projects = [
+  {
+    title: 'Rentall',
+    description: 'A full-featured online store with a custom admin panel, payment gateway integration, and real-time inventory management.',
+    tags: ['Vue.js', 'Laravel', 'Tailwind CSS', 'MySQL'],
+    color: 'from-emerald-500 to-lime-500',
+    link: '#'
+  },
+  {
+    title: 'Telegram Management Bot',
+    description: 'Advanced Telegram bot for community management with automated moderation, anti-spam, and role-based access.',
+    tags: ['PHP', 'Telegram API', 'Laravel', 'Redis'],
+    color: 'from-purple-500 to-pink-500',
+    link: '#'
+  },
+  {
+    title: 'Corporate Dashboard',
+    description: 'Modern internal analytics dashboard with real-time data visualization, interactive charts, and exportable reports.',
+    tags: ['Nuxt', '.NET', 'C#', 'SQL Server'],
+    color: 'from-emerald-500 to-teal-500',
+    link: '#'
+  }
+]
+</script>
+
 <template>
   <section class="py-10">
     <div class="text-center mb-16">
@@ -35,29 +61,3 @@
     </div>
   </section>
 </template>
-
-<script setup>
-const projects = [
-  {
-    title: 'Rentall',
-    description: 'A full-featured online store with a custom admin panel, payment gateway integration, and real-time inventory management.',
-    tags: ['Vue.js', 'Laravel', 'Tailwind CSS', 'MySQL'],
-    color: 'from-blue-500 to-cyan-500',
-    link: '#'
-  },
-  {
-    title: 'Telegram Management Bot',
-    description: 'Advanced Telegram bot for community management with automated moderation, anti-spam, and role-based access.',
-    tags: ['PHP', 'Telegram API', 'Laravel', 'Redis'],
-    color: 'from-purple-500 to-pink-500',
-    link: '#'
-  },
-  {
-    title: 'Corporate Dashboard',
-    description: 'Modern internal analytics dashboard with real-time data visualization, interactive charts, and exportable reports.',
-    tags: ['Nuxt', '.NET', 'C#', 'SQL Server'],
-    color: 'from-emerald-500 to-teal-500',
-    link: '#'
-  }
-]
-</script>
