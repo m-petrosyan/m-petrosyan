@@ -4,10 +4,9 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const colorMode = useColorMode()
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
-import cvUrl from '@/assets/cv.pdf';
 
 const menu = [
-  { name: 'CV', href: cvUrl },
+  { name: 'CV', href: '/cv.pdf' },
   { name: 'Skills', href: '#skills' },
   { name: 'Portfolio', href: '#portfolio' },
   { name: 'Contacts', href: '#contacts' }
