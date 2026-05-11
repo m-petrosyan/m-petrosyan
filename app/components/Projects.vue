@@ -3,11 +3,12 @@ import sheriffbot from '@/assets/images/projects/sheriffbot.jpg';
 import Rentall from '@/assets/images/projects/rentall.jpg';
 import AraxAlice from '@/assets/images/projects/arax.jpg';
 import Rocker from '@/assets/images/projects/rocker.jpg';
+import Volumemax from '@/assets/images/projects/volumemax.jpg';
 
 const projects = [
   {
     title: 'SheriffBot',
-    description: 'Admin bot/miniapp anti-spam, scheduler, stats & chat summary. Clean interface. Just add me as admin!',
+    description: 'Telegram assistant for managing channels and groups. Features post scheduling with repeat options, anti-spam moderation, AI-powered chat summaries, analytics tracking, subscriber growth insights, and a visual content calendar.',
     tags: ['Html','Css','Js','Vue.js', 'Php','Laravel', 'Tailwind CSS', 'MySQL','Рedis', 'Telegram Bot API','Inertia.js'],
     image: sheriffbot,
     color: 'from-amber-600 to-orange-700',
@@ -17,7 +18,7 @@ const projects = [
   },
   {
     title: 'Rocker.am',
-    description: 'A full-featured rental platform with a custom admin panel, payment gateway integration, and real-time inventory management.',
+    description: 'Event platform with a website, Telegram bot, and mini app for discovering concerts and music events. Includes event listings, photo galleries, artist/band pages, and community updates.',
     tags: ['Html','Css','Js','Vue.js', 'Php','Laravel', 'Tailwind CSS', 'MySQL','Рedis', 'Telegram Bot API','Inertia.js'],
     image: Rocker,
     color: 'from-amber-500 to-orange-500',
@@ -28,7 +29,7 @@ const projects = [
   },
   {
     title: 'Rentall',
-    description: 'A full-featured rental platform with a custom admin panel, payment gateway integration, and real-time inventory management.',
+    description: 'Equipment rental platform for photo and video gear. Users can browse available equipment, view detailed information, and book rentals online for specific dates.',
     tags: ['Html','Css','Js','Vue.js', 'Vuex', 'Php','Laravel', 'Tailwind CSS', 'MySQL'],
     image: Rentall,
     color: 'from-amber-500 to-orange-500',
@@ -37,8 +38,18 @@ const projects = [
     ]
   },
   {
+    title: 'Volume Max – Sound Booster',
+    description: 'Browser extension that enhances and controls tab audio with up to 500% volume boost. Features include global volume control, per-tab priority audio, customizable startup modes, and a modern privacy-focused interface for managing sound across multiple tabs.',
+    tags: ['Html','Css','Js','Vue.js'],
+    image: Volumemax,
+    color: 'from-amber-500 to-orange-500',
+    links: [
+      { text: 'View Project', href: 'https://chromewebstore.google.com/detail/volume-max-sound-booster/kncgnhjkalclfiiffejefdjcmdgbcbfm' },
+    ]
+  },
+  {
     title: 'AraxAlice',
-    description: 'Modern internal analytics dashboard with real-time data visualization, interactive charts, and exportable reports.',
+    description: 'Personal portfolio website of artist and creature designer Araks, showcasing illustrations, sculptures, concept art, and imaginative creature designs, along with art direction and storytelling projects',
     tags: ['Html','Css','Js','Vue.js', 'Vuex', 'Php','Laravel', 'Tailwind CSS', 'MySQL'],
     image: AraxAlice,
     color: 'from-slate-600 to-slate-800',
