@@ -1,22 +1,25 @@
 <script setup>
+
 const skills = [
   { name: 'HTML 5', icon: 'vscode-icons:file-type-html' },
   { name: 'CSS 3', icon: 'vscode-icons:file-type-css' },
   { name: 'JavaScript', icon: 'vscode-icons:file-type-js-official' },
-  { name: 'PHP', icon: 'logos:php' },
-  { name: 'C#', icon: 'vscode-icons:file-type-csharp2' },
-  { name: '.NET', icon: 'logos:dotnet' },
-  { name: 'SQL', icon: 'vscode-icons:file-type-sql' },
   { name: 'Vue.js', icon: 'logos:vue' },
   { name: 'Vuex', icon: 'material-icon-theme:vuex-store' },
-  { name: 'Laravel', icon: 'logos:laravel' },
-  { name: 'Livewire', icon: 'simple-icons:livewire', color: 'text-pink-500' },
-  { name: 'Inertia.js', icon: 'simple-icons:inertia', color: 'text-purple-500' },
   { name: 'Alpine.js', icon: 'logos:alpinejs-icon' },
+  { name: 'Inertia.js', icon: 'simple-icons:inertia', color: 'text-purple-500' },
+  { name: 'Livewire', icon: 'simple-icons:livewire', color: 'text-pink-500' },
+  { name: 'Filament', icon: 'simple-icons:filament', color: 'text-amber-500' },
   { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon' },
   { name: 'Bootstrap', icon: 'logos:bootstrap' },
+  { name: 'PHP', icon: 'logos:php' },
+  { name: 'Laravel', icon: 'logos:laravel' },
+  { name: '.NET', icon: 'logos:dotnet' },
+  { name: 'C#', icon: 'vscode-icons:file-type-csharp2' },
+  { name: 'SQL', icon: 'vscode-icons:file-type-sql' },
+  { name: 'Redis', icon: 'logos:redis' },
   { name: 'Git', icon: 'logos:git-icon' },
-  { name: 'Telegram Bot', icon: 'logos:telegram' }
+  { name: 'Telegram Bot', icon: 'logos:telegram' },
 ]
 </script>
 
