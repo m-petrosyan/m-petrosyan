@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- HEADER WAVE -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Mikayel%20Petrosyan&fontSize=44&fontColor=ffffff&animation=twinkling&fontAlignY=36&desc=Full%20Stack%20Developer&descAlignY=57&descSize=18&descColor=aaaacc" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Miqayel%20Petrosyan&fontSize=44&fontColor=ffffff&animation=twinkling&fontAlignY=36&desc=Full%20Stack%20Developer&descAlignY=57&descSize=18&descColor=aaaacc" width="100%"/>
 
 <!-- TYPING ANIMATION -->
 <a href="https://github.com/mpetrosyan">
