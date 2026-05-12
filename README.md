@@ -4,8 +4,8 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Miqayel%20Petrosyan&fontSize=44&fontColor=ffffff&animation=twinkling&fontAlignY=36&desc=Full%20Stack%20Developer&descAlignY=57&descSize=18&descColor=aaaacc" width="100%"/>
 
 <!-- TYPING ANIMATION -->
-<a href="https://github.com/mpetrosyan">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=58A6FF&center=true&vCenter=true&width=520&lines=Full+Stack+Web+Developer+%F0%9F%9A%80;Building+with+Laravel+%26+PHP+%F0%9F%90%98;Working+with+Vue+3+%26+Nuxt+%F0%9F%9F%A2;Telegram+Bot+%26+Mini+App+developer+%F0%9F%A4%96;Learning+C%23+%26+.NET+Core+%F0%9F%94%B7;Coding+clean+%26+functional+apps+%E2%9C%A8" alt="Typing SVG" />
+<a href="https://mpetrosyan.info">
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=58A6FF&center=true&vCenter=true&width=520&lines=Full+Stack+Web+Developer;Building+with+Laravel+%26+PHP;Working+with+Vue+3+%26+Nuxt;Telegram+Bot+%26+Mini+App+developer;Learning+C%23+%26+.NET+Core;Coding+clean+%26+functional+apps" alt="Typing SVG" />
 </a>
 <br/>
 <br/>
@@ -13,14 +13,14 @@
 
 ---
 
-## 👨‍💻 About Me
+##  About Me
 
 ```csharp
 public class Developer
 {
     public string Name     => "Mikayel Petrosyan";
     public string GitHub   => "github.com/mpetrosyan";
-    public string Location => "Yerevan, Armenia 🇦🇲";
+    public string Location => "Yerevan, Armenia";
 
     public string[] Stack => new[] {
         "C#", "ASP.NET Core",
