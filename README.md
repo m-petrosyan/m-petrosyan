@@ -77,12 +77,21 @@ public class Developer
 <div align="center">
 
 <a href="https://github.com/mpetrosyan/sheriffbot">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=mpetrosyan&repo=sheriffbot&theme=tokyonight&hide_border=true" />
+  <img src="app/assets/images/projects/sheriffbot.jpg" width="20%" alt="SheriffBot" />
 </a>
 &nbsp;
-<a href="https://github.com/mpetrosyan/filament-task">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=mpetrosyan&repo=filament-task&theme=tokyonight&hide_border=true" />
+<a href="https://rocker.am">
+  <img src="app/assets/images/projects/rocker.jpg" width="20%" alt="Rocker.am" />
 </a>
+&nbsp;
+<a href="https://chromewebstore.google.com/detail/volume-max-sound-booster/kncgnhjkalclfiiffejefdjcmdgbcbfm">
+  <img src="app/assets/images/projects/volumemax.jpg" width="20%" alt="Volume Max" />
+</a>
+&nbsp;
+<a href="https://rentall.am"> 
+  <img src="app/assets/images/projects/rentall.jpg" width="20%" alt="Rentall" />
+</a>
+
 
 </div>
 
