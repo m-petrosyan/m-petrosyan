@@ -76,7 +76,7 @@ public class Developer
 
 <div align="center">
 
-<a href="https://github.com/mpetrosyan/sheriffbot">
+<a href="https://t.me/BotSheriffBot">
   <img src="app/assets/images/projects/sheriffbot.jpg" width="20%" alt="SheriffBot" />
 </a>
 &nbsp;
