@@ -11,14 +11,15 @@
     "pull": "git pull origin main && npm install && npm run build && pm2 restart mpetrosyan"
   },
   "dependencies": {
+    "@iconify-json/mdi": "^1.1.64",
     "nuxt": "^3.11.2",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0",
-    "@iconify-json/mdi": "^1.1.64"
+    "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.11.4",
+    "@nuxt/icon": "^1.0.0-beta.7",
     "@nuxtjs/color-mode": "^3.3.2",
-    "@nuxt/icon": "^1.0.0-beta.7"
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "nuxt-gtag": "^4.1.0"
   }
 }

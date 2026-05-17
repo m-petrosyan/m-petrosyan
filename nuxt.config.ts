@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   future: {
@@ -8,8 +7,12 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
-    '@nuxt/icon'
+    '@nuxt/icon',
+    'nuxt-gtag',
   ],
+  gtag: {
+    id: 'G-3GKMD09B1V',
+  },
   colorMode: {
     classSuffix: '',
     preference: 'dark',
