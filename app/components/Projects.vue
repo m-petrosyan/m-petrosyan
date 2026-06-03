@@ -4,8 +4,19 @@ import Rentall from '@/assets/images/projects/rentall.jpg';
 import AraxAlice from '@/assets/images/projects/arax.jpg';
 import Rocker from '@/assets/images/projects/rocker.jpg';
 import Volumemax from '@/assets/images/projects/volumemax.jpg';
+import recruter from '@/assets/images/projects/recruter-toolkit.jpg';
 
 const projects = [
+  {
+    title: 'LinkedIn Recruiter Toolkit',
+    description: 'LinkedIn Resume Exporter Chrome extension for bulk exporting candidate resumes and profile data from LinkedIn. Features one-click PDF download with smart file renaming, custom CSV export with configurable fields, multi-language UI',
+    tags: ['Html','Css','Js','Vue.js'],
+    image: recruter,
+    color: 'from-amber-600 to-orange-700',
+    links: [
+      { text: 'View Project', href: 'https://chromewebstore.google.com/detail/iglecoggkeflbcacbehhllldghgchipl?utm_source=item-share-cb' },
+    ]
+  }, 
   {
     title: 'SheriffBot',
     description: 'Telegram assistant for managing channels and groups. Features post scheduling with repeat options, anti-spam moderation, AI-powered chat summaries, analytics tracking, subscriber growth insights, and a visual content calendar.',
