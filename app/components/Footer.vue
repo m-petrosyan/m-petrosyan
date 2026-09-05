@@ -5,7 +5,7 @@
         &copy; {{ new Date().getFullYear() }} Miqayel Petrosyan.
       </div>
       <div class="flex items-center gap-4">
-        <a href="/cv.pdf" class="text-sm text-slate-500 hover:text-primary-500 transition-colors">CV</a>
+        <NuxtLink to="/cv" class="text-sm text-slate-500 hover:text-primary-500 transition-colors">CV</NuxtLink>
         <a href="#skills" class="text-sm text-slate-500 hover:text-primary-500 transition-colors">Skills</a>
         <a href="#portfolio" class="text-sm text-slate-500 hover:text-primary-500 transition-colors">Portfolio</a>
       </div>

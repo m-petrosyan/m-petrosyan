@@ -1,0 +1,105 @@
+{
+  "basics": {
+    "name": "Miqayel Petrosyan",
+    "title": "Full Stack Web Developer",
+    "roleBadge": "Open to freelance & new opportunities",
+    "location": "Yerevan, Armenia",
+    "email": "miqayelpetrosyan@gmail.com",
+    "phone": "+374 95 101 585",
+    "website": "https://mpetrosyan.info",
+    "github": "https://github.com/m-petrosyan",
+    "linkedin": "https://www.linkedin.com/in/miqayel-petrosyan-754349185",
+    "telegram": "https://t.me/mpetrosyan1",
+    "summary": [
+      "Full Stack Web Developer building products end-to-end with PHP / Laravel backends and Vue 3 / Nuxt frontends — Telegram bots & mini-apps, browser extensions and modern web applications.",
+      "I write clean, functional and user-centric code, and I'm currently expanding into C# and .NET Core."
+    ],
+    "highlights": [
+      "Shipped production apps: event platform Rocker.am, equipment rental platform Rentall.am, artist portfolio AraxAlice.com and Telegram assistant SheriffBot.",
+      "Built Telegram bots and mini-apps with scheduling, moderation, AI chat summaries, analytics and a content calendar.",
+      "Developed Chrome extensions: Volume Max sound booster and the LinkedIn Recruiter Toolkit bulk resume/CSV exporter.",
+      "Solid foundation in PHP/Laravel, MySQL, Redis, REST APIs, Git and Linux-friendly tooling.",
+      "Coding clean and functional apps while exploring C# & .NET Core."
+    ]
+  },
+  "experience": [
+    {
+      "role": "Full Stack Developer",
+      "company": "Freelance · Own products",
+      "period": "20XX – Present",
+      "bullets": [
+        "Design and build full-stack web applications — Laravel/PHP REST backends with Vue 3, Nuxt and Inertia.js frontends, MySQL and Redis (Rocker.am, Rentall.am, AraxAlice.com).",
+        "Develop Telegram bots and mini-apps: SheriffBot with post scheduling, anti-spam moderation, AI-powered summaries, analytics and a visual content calendar.",
+        "Ship browser extensions used by real users: Volume Max audio booster and the LinkedIn Recruiter Toolkit resume/CSV exporter.",
+        "Integrate payment flows, admin panels (Filament/Livewire) and third-party APIs where the product needs them."
+      ],
+      "stack": "PHP, Laravel, Vue 3, Nuxt, Inertia.js, Tailwind CSS, MySQL, Redis, Telegram Bot API, Git"
+    },
+    {
+      "role": "Web Developer",
+      "company": "Early projects & experiments",
+      "period": "20XX – 20XX",
+      "bullets": [
+        "Built small sites, bots, scrapers and utilities to practice Laravel, Vue and JavaScript.",
+        "Learned by shipping: from landing pages and storefronts to API-first tools."
+      ],
+      "stack": "PHP, Laravel, JavaScript, Vue, Bootstrap, Git"
+    }
+  ],
+  "skills": [
+    {
+      "group": "Frontend",
+      "items": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Vue 3",
+        "Nuxt",
+        "Vuex",
+        "Pinia",
+        "Inertia.js",
+        "Alpine.js",
+        "Tailwind CSS",
+        "Bootstrap"
+      ]
+    },
+    {
+      "group": "Backend",
+      "items": [
+        "PHP",
+        "Laravel",
+        "Filament",
+        "Livewire",
+        "C#",
+        "SQL",
+        "REST APIs"
+      ]
+    },
+    {
+      "group": "Tools & data",
+      "items": [
+        "MySQL",
+        "Redis",
+        "Git",
+        "Telegram Bot API",
+        "Browser Extensions"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "name": "Armenian",
+      "proficiency": "Native"
+    },
+    {
+      "name": "Russian",
+      "proficiency": "Fluent"
+    },
+    {
+      "name": "English",
+      "proficiency": "A2"
+    }
+  ],
+  "education": [],
+  "certifications": []
+}

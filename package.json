@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@iconify-json/mdi": "^1.1.64",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
     "nuxt": "4.1.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"

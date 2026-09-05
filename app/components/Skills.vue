@@ -16,7 +16,6 @@ const skills = [
   { name: 'PHP', icon: 'logos:php' },
   { name: 'Laravel', icon: 'logos:laravel' },
   { name: 'C#', icon: 'vscode-icons:file-type-csharp2' },
-  { name: '.NET', icon: 'logos:dotnet' },
   { name: 'SQL', icon: 'vscode-icons:file-type-sql' },
   { name: 'Redis', icon: 'logos:redis' },
   { name: 'Git', icon: 'logos:git-icon' },

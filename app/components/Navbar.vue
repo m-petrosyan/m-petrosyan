@@ -6,7 +6,7 @@ const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
 
 const menu = [
-  { name: 'CV', href: '/cv.pdf' },
+  { name: 'CV', href: '/cv' },
   { name: 'Skills', href: '#skills' },
   { name: 'Portfolio', href: '#portfolio' },
   { name: 'Contacts', href: '#contacts' }
