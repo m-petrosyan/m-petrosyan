@@ -1,17 +1,14 @@
 <div align="center">
-
 <!-- HEADER WAVE -->
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=200&section=header&text=Miqayel%20Petrosyan&fontSize=44&fontColor=ffffff&animation=twinkling&fontAlignY=36&desc=Full%20Stack%20Developer&descAlignY=57&descSize=18&descColor=aaaacc" width="100%"/>
-
 <!-- TYPING ANIMATION -->
 <a href="https://mpetrosyan.info">
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=58A6FF&center=true&vCenter=true&width=520&lines=Full+Stack+Web+Developer;Building+with+Laravel+%26+PHP;Working+with+Vue+3+%26+Nuxt;Telegram+Bot+%26+Mini+App+developer;Learning+C%23+%26+.NET+Core;Coding+clean+%26+functional+apps" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=58A6FF&center=true&vCenter=true&width=520&lines=Full+Stack+Web+Developer;Building+with+Laravel+%26+PHP;Working+with+Vue+3+%26+Nuxt;Telegram+Bot+%26+Mini+App+developer;Also+coding+with+Node.js+%26+Nest.js;Coding+clean+%26+functional+apps" alt="Typing SVG" />
 </a>
 <br/>
 <br/>
 </div>
 
----
 
 ##  About Me
 
@@ -57,8 +54,8 @@ class Developer
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![Filament](https://img.shields.io/badge/Filament-f59e0b?style=for-the-badge&logo=laravel&logoColor=white)
 ![Livewire](https://img.shields.io/badge/Livewire-FB70A9?style=for-the-badge&logo=livewire&logoColor=white)
-![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)
-![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
 
 **Frontend**
 
