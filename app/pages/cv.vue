@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { generateCvPdf } from '~/composables/generateCvPdf'
-
 useHead({
   title: 'CV — Miqayel Petrosyan',
   meta: [
@@ -11,7 +9,6 @@ useHead({
 
 const { data: fetched } = await useFetch('/api/cv')
 
-const needsKey = computed(() => !!fetched.value?.needsKey)
 const defaultCv = () => ({
   basics: {
     name: 'Miqayel Petrosyan',
@@ -37,75 +34,7 @@ const defaultCv = () => ({
 const cv = ref<any>(defaultCv())
 watch(fetched, () => {
   if (fetched.value?.data) cv.value = JSON.parse(JSON.stringify(fetched.value.data))
-}, { immediate: true })  // ---- PDF autosave ----
-  const showEditor = ref(false)
-const saving = ref(false)
-const pdfBusy = ref(false)
-const lastSavedAt = ref<string | null>(null)
-const errorMsg = ref('')
-const pdfVersion = ref(0) // cache-buster; bumped after every regeneration (starts constant for hydration)
-const editKey = () => typeof window !== 'undefined' ? sessionStorage.getItem('cv-edit-key') || '' : ''
-
-let timer: ReturnType<typeof setTimeout> | null = null
-let queued = false
-
-watch(cv, () => {
-  if (!showEditor.value || saving.value) return
-  if (timer) clearTimeout(timer)
-  timer = setTimeout(() => { void saveAll() }, 900)
-}, { deep: true })
-
-function headers () {
-  const h: Record<string, string> = { 'content-type': 'application/json' }
-  if (needsKey.value) h['x-cv-key'] = editKey()
-  return h
-}
-function pdfHeaders () {
-  const h: Record<string, string> = { 'content-type': 'application/pdf' }
-  if (needsKey.value) h['x-cv-key'] = editKey()
-  return h
-}
-
-async function saveAll () {
-  if (saving.value) { queued = true; return }
-  saving.value = true
-  errorMsg.value = ''
-  try {
-    const payload = JSON.parse(JSON.stringify(cv.value))
-    await $fetch('/api/cv', { method: 'PUT', body: { data: payload }, headers: headers() })
-    await updatePdf()
-    lastSavedAt.value = new Date().toLocaleTimeString()
-  } catch (e: any) {
-    errorMsg.value = e?.data?.statusMessage || e?.message || 'Save failed'
-  } finally {
-    saving.value = false
-    if (queued) { queued = false; void saveAll() }
-  }
-}
-
-async function updatePdf () {
-  pdfBusy.value = true
-  try {
-    const el = document.getElementById('cv-pdf-sheet')
-    if (!el) throw new Error('pdf sheet missing')
-    const blob = await generateCvPdf(el)
-    await $fetch('/api/cv/pdf', { method: 'PUT', body: blob, headers: pdfHeaders() })
-    pdfVersion.value = Date.now()
-  } finally {
-    pdfBusy.value = false
-  }
-}
-
-function pdfHref () {
-  return pdfVersion.value ? `/cv.pdf?v=${pdfVersion.value}` : '/cv.pdf'
-}
-
-function openEditor () {
-  if (needsKey.value && !editKey()) {
-    // let the modal ask for the key first
-  }
-  showEditor.value = true
-}
+}, { immediate: true })
 
 function contactLink (url?: string) {
   if (!url) return '#'
@@ -133,29 +62,14 @@ const year = new Date().getFullYear()
 
         <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
           <NuxtLink to="/" class="text-slate-400 hover:text-white transition-colors">Portfolio</NuxtLink>
-          <a :href="pdfHref()" download class="text-slate-400 hover:text-white transition-colors flex items-center gap-1.5">
+          <a href="/cv.pdf" download class="text-slate-400 hover:text-white transition-colors flex items-center gap-1.5">
             <Icon name="lucide:download" class="w-3.5 h-3.5" /> Download CV
           </a>
         </nav>
-
-        <div class="flex items-center gap-2.5">
-          <div v-if="saving || pdfBusy" class="flex items-center gap-1.5 text-xs text-slate-400">
-            <Icon name="lucide:loader-2" class="w-3.5 h-3.5 animate-spin text-[#f5c542]" /> updating cv.pdf…
-          </div>
-          <div v-else-if="lastSavedAt" class="hidden sm:flex items-center gap-1.5 text-xs text-emerald-400">
-            <Icon name="lucide:check" class="w-3.5 h-3.5" /> cv.pdf updated {{ lastSavedAt }}
-          </div>
-          <button @click="openEditor"
-                  class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#f5c542] hover:bg-[#ffd75e] text-slate-900 text-sm font-bold transition">
-            <Icon name="lucide:pencil" class="w-3.5 h-3.5" />
-            <span class="hidden sm:inline">Edit CV</span><span class="sm:hidden">Edit</span>
-          </button>
-        </div>
       </div>
     </header>
 
     <main class="relative z-[1] max-w-5xl mx-auto px-5 pt-16 pb-8">
-
       <!-- Hero -->
       <section class="text-center mb-20">
         <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#f5c542]/25 bg-[#f5c542]/8 text-[#f5c542] text-xs font-semibold">
@@ -182,7 +96,7 @@ const year = new Date().getFullYear()
         </div>
 
         <div class="mt-8 flex flex-wrap justify-center gap-4">
-          <a :href="pdfHref()" download
+          <a href="/cv.pdf" download
              class="flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#f5c542] hover:bg-[#ffd75e] text-slate-900 font-bold shadow-lg shadow-[#f5c542]/20 transition-all hover:shadow-[#f5c542]/30">
             <Icon name="lucide:download" class="w-5 h-5" />
             Download CV
@@ -209,7 +123,6 @@ const year = new Date().getFullYear()
             <span class="text-slate-300 leading-relaxed">{{ h }}</span>
           </li>
         </ul>
-        <p v-if="showEditor && !cv.basics.highlights?.length" class="mt-4 text-sm italic text-slate-500">Add key highlights in Edit CV.</p>
       </section>
 
       <!-- Experience -->
@@ -240,7 +153,7 @@ const year = new Date().getFullYear()
             </p>
           </article>
         </div>
-        <p v-if="!cv.experience?.length" class="text-sm italic text-slate-500">Nothing here yet — open <span class="text-[#f5c542] not-italic font-semibold">Edit CV</span> and add your experience.</p>
+        <p v-if="!cv.experience?.length" class="text-sm italic text-slate-500">Nothing here yet.</p>
       </section>
 
       <!-- Technical skills -->
@@ -352,7 +265,6 @@ const year = new Date().getFullYear()
             </span>
           </a>
         </div>
-        <p v-if="errorMsg" class="mt-4 text-sm text-rose-400">⚠ {{ errorMsg }}</p>
       </section>
     </main>
 
@@ -360,16 +272,10 @@ const year = new Date().getFullYear()
       <div class="max-w-5xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3">
         <p class="text-sm text-slate-500">© {{ year }} Miqayel Petrosyan</p>
         <div class="flex items-center gap-5 text-sm">
-          <a :href="pdfHref()" download class="text-slate-500 hover:text-[#f5c542] transition-colors">Download PDF</a>
+          <a href="/cv.pdf" download class="text-slate-500 hover:text-[#f5c542] transition-colors">Download PDF</a>
           <NuxtLink to="/" class="text-slate-500 hover:text-[#f5c542] transition-colors">Portfolio</NuxtLink>
         </div>
       </div>
     </footer>
-
-    <!-- PDF source sheet (never visible) -->
-    <CvPdfSheet :cv="cv" />
-
-    <!-- Editor -->
-    <CvEditor :cv="cv" :open="showEditor" :needs-key="needsKey" @close="showEditor = false" @save-now="saveAll()" />
   </div>
 </template>

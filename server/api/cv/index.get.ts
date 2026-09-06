@@ -1,9 +1,11 @@
-import { loadCv, requiresEditKey } from '../../utils/cv-store'
+import { readFileSync } from 'node:fs'
+import { join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-export default defineEventHandler(async () => {
-  const data = await loadCv()
-  return {
-    data,
-    needsKey: !!requiresEditKey(),
-  }
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+export default defineEventHandler(() => {
+  const cvPath = join(__dirname, '..', '..', 'data', 'cv.json')
+  const data = JSON.parse(readFileSync(cvPath, 'utf-8'))
+  return { data }
 })
