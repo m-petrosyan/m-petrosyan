@@ -35,7 +35,8 @@ onUnmounted(() => {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
       <a href="#" class="text-2xl font-bold tracking-tighter hover:scale-105 transition-transform duration-300">
         <span class="text-gradient">M</span>iqayel.
-      </a>        <nav class="hidden md:flex items-center gap-8">
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
         <a v-for="item in menu" :key="item.name" :href="item.href"
            class="text-sm font-medium hover:text-primary-500 transition-colors duration-200">
           {{ item.name }}

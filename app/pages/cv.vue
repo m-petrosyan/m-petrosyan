@@ -13,7 +13,6 @@ const defaultCv = () => ({
   basics: {
     name: 'Miqayel Petrosyan',
     title: 'Full Stack Web Developer',
-    roleBadge: 'Open to freelance & new opportunities',
     location: 'Yerevan, Armenia',
     email: 'miqayelpetrosyan@gmail.com',
     phone: '+374 95 101 585',
@@ -55,9 +54,8 @@ const year = new Date().getFullYear()
     <!-- Top bar -->
     <header class="relative z-10 border-b border-[#1e2430] bg-[#0b0f17]/80 backdrop-blur-md">
       <div class="max-w-5xl mx-auto px-5 py-4 flex items-center justify-between gap-3">
-        <NuxtLink to="/" class="flex items-center gap-2 group">
-          <span class="grid place-items-center w-8 h-8 rounded-lg bg-[#f5c542] text-slate-900 font-extrabold text-sm group-hover:scale-105 transition-transform">M</span>
-          <span class="font-bold text-white tracking-tight">Miqayel<span class="text-[#f5c542]">.</span></span>
+        <NuxtLink to="/" class="text-2xl text-white font-bold tracking-tighter hover:scale-105 transition-transform duration-300">
+          <span class="text-gradient">M</span>iqayel.
         </NuxtLink>
 
         <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -72,14 +70,6 @@ const year = new Date().getFullYear()
     <main class="relative z-[1] max-w-5xl mx-auto px-5 pt-16 pb-8">
       <!-- Hero -->
       <section class="text-center mb-20">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#f5c542]/25 bg-[#f5c542]/8 text-[#f5c542] text-xs font-semibold">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-          </span>
-          {{ cv.basics.roleBadge }}
-        </span>
-
         <h1 class="mt-6 text-4xl md:text-6xl font-extrabold tracking-tight text-white">{{ cv.basics.name }}</h1>
         <p class="mt-3 text-lg md:text-xl text-slate-400">{{ cv.basics.title }}</p>
 
