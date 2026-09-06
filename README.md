@@ -15,27 +15,34 @@
 
 ##  About Me
 
-```csharp
-public class Developer
+```php
+<?php
+
+class Developer
 {
-    public string Name     => "Mikayel Petrosyan";
-    public string GitHub   => "github.com/mpetrosyan";
-    public string Location => "Yerevan, Armenia";
-
-    public string[] Stack => new[] {
-        "C#", "ASP.NET Core",
-        "PHP", "Laravel", "Filament", "Livewire",
-        "Vue 3", "Nuxt", "Inertia.js", "Redis", "MySQL"
-    };
-
-    public string[] CurrentlyBuilding => new[] { "SheriffBot", "Telegram Mini Apps" };
-
-    public void DrinkCoffee()
+    public function getName(): string
     {
-        while (true) 
-        {
-            Code();
-        }
+        return "Mikayel Petrosyan";
+    }
+
+    public function getGitHub(): string
+    {
+        return "github.com/m-petrosyan";
+    }
+
+    public function getLocation(): string
+    {
+        return "Yerevan, Armenia";
+    }
+
+    public function getStack(): array
+    {
+        return [
+            "PHP", "Laravel", "Filament", "Livewire",
+            "Vue 3", "Nuxt", "Inertia.js",
+            "Node.js", "Nest.js",
+            "Redis", "MySQL","PostgreSQL",
+        ];
     }
 }
 ```
