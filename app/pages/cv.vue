@@ -133,8 +133,7 @@ const year = new Date().getFullYear()
 
         <div v-if="cv.experience?.length" class="space-y-5">
           <article v-for="(job, i) in cv.experience" :key="'job' + i"
-                   class="relative overflow-hidden rounded-2xl border border-[#1e2430] bg-[#0e131d] p-6 md:p-7 pl-7 md:pl-8">
-            <span class="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#f5c542] to-[#f5c542]/10"></span>
+                   class="overflow-hidden rounded-2xl border border-[#1e2430] bg-[#0e131d] p-6 md:p-7 pl-7 md:pl-8">
             <div class="flex flex-wrap items-baseline justify-between gap-2">
               <div>
                 <h3 class="text-lg md:text-xl font-bold text-white">{{ job.role }}</h3>
@@ -149,7 +148,7 @@ const year = new Date().getFullYear()
               </li>
             </ul>
             <p v-if="job.stack" class="mt-4 text-[13px] text-slate-500">
-              <span class="font-bold tracking-widest text-slate-300">STACK:</span> <span class="text-slate-400">{{ job.stack }}</span>
+              <span class="font-bold tracking-widest text-[#f5c542]">STACK:</span> <span class="text-slate-400">{{ job.stack }}</span>
             </p>
           </article>
         </div>

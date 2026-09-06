@@ -12,38 +12,69 @@
     "telegram": "https://t.me/mpetrosyan1",
     "summary": [
       "Full Stack Web Developer building products end-to-end with PHP / Laravel backends and Vue 3 / Nuxt frontends — Telegram bots & mini-apps, browser extensions and modern web applications.",
-      "I write clean, functional and user-centric code, and I'm currently expanding into C# and .NET Core."
+      "I also work with Node.js and Nest.js for backend services alongside PHP/Laravel, and write clean, functional and user-centric code."
     ],
     "highlights": [
       "Shipped production apps: event platform Rocker.am, equipment rental platform Rentall.am, artist portfolio AraxAlice.com and Telegram assistant SheriffBot.",
       "Built Telegram bots and mini-apps with scheduling, moderation, AI chat summaries, analytics and a content calendar.",
       "Developed Chrome extensions: Volume Max sound booster and the LinkedIn Recruiter Toolkit bulk resume/CSV exporter.",
       "Solid foundation in PHP/Laravel, MySQL, Redis, REST APIs, Git and Linux-friendly tooling.",
-      "Coding clean and functional apps while exploring C# & .NET Core."
+      "Also experienced with Node.js and Nest.js for backend services."
     ]
   },
   "experience": [
     {
       "role": "Full Stack Developer",
       "company": "Freelance · Own products",
-      "period": "20XX – Present",
+      "period": "2026",
       "bullets": [
         "Design and build full-stack web applications — Laravel/PHP REST backends with Vue 3, Nuxt and Inertia.js frontends, MySQL and Redis (Rocker.am, Rentall.am, AraxAlice.com).",
         "Develop Telegram bots and mini-apps: SheriffBot with post scheduling, anti-spam moderation, AI-powered summaries, analytics and a visual content calendar.",
         "Ship browser extensions used by real users: Volume Max audio booster and the LinkedIn Recruiter Toolkit resume/CSV exporter.",
         "Integrate payment flows, admin panels (Filament/Livewire) and third-party APIs where the product needs them."
       ],
-      "stack": "PHP, Laravel, Vue 3, Nuxt, Inertia.js, Tailwind CSS, MySQL, Redis, Telegram Bot API, Git"
+      "stack": "PHP, Laravel, Vue 3, Nuxt, Inertia.js, Tailwind CSS, MySQL, PostgreSql,Eloquent ORM, CI/CD, PM2, PHPUnit, Laravel Horizon, Redis, Telegram Bot API, Git"
     },
     {
-      "role": "Web Developer",
-      "company": "Early projects & experiments",
-      "period": "20XX – 20XX",
+      "role": "Full-Stack Developer",
+      "company": "SW Development",
+      "period": "2025 – Present",
       "bullets": [
-        "Built small sites, bots, scrapers and utilities to practice Laravel, Vue and JavaScript.",
-        "Learned by shipping: from landing pages and storefronts to API-first tools."
+        "Restored a hacked scientific-topic website — closed all security holes and removed a backdoor. The site was under constant attack from bots and users attempting to break into the admin panel, so I restricted external requests at the Nginx level. Also added a significant amount of new functionality and continue to maintain and support the project."
       ],
-      "stack": "PHP, Laravel, JavaScript, Vue, Bootstrap, Git"
+      "stack": "PHP, Wordpress, JavaScript, Nginx, Linux, Git, MySQL"
+    },
+    {
+      "role": "Full-Stack Developer",
+      "company": "AML Incubator",
+      "period": "2024 – 2025",
+      "bullets": [
+        "Built a course creation and sales platform (with a blog) for AML training courses.",
+        "Developed a resort/leisure-zone site with room reservation based on real-time availability, plus tour, activity, and restaurant booking.",
+        "Implemented mass mailing to all registered users.",
+        "Deployed and configured Linux VPS environments with Nginx."
+      ],
+      "stack": "PHP, Laravel, Inertia, Vue, Nuxt, MySQL, Eloquent ORM, CI/CD, PM2, PHPUnit, Redis, Git, Nginx, Linux"
+    },
+    {
+      "role": "Backend Developer",
+      "company": "Webex Technologies",
+      "period": "2023 – 2024",
+      "bullets": [
+        "Led the complete refactoring and migration of a legacy PHP 5.2 application to Laravel 10, improving system security, maintainability, and code quality."
+      ],
+      "stack": "PHP, Laravel, MySQL, Git, Eloquent ORM"
+    },
+    {
+      "role": "Full-Stack Developer",
+      "company": "EliteDevSquad",
+      "period": "2021 – 2023",
+      "bullets": [
+        "Engineered a geolocation-based dating platform with real-time location matching and user discovery features.",
+        "Developed an HR tool to automate the interview process: inviting a candidate to the next interview stage via email with a single click, allowing HR to leave comments at each stage, and with one click either advancing the candidate to the next stage or rejecting them.",
+        "Contributed across multiple concurrent client projects covering frontend, backend, and database work."
+      ],
+      "stack": "PHP, Laravel, JavaScript, MySQL, Eloquent ORM"
     }
   ],
   "skills": [
@@ -68,10 +99,11 @@
       "items": [
         "PHP",
         "Laravel",
+        "Node.js",
         "Nest.js",
+        "Inertia.js",
         "Filament",
         "Livewire",
-        "C#",
         "SQL",
         "REST APIs"
       ]
@@ -80,6 +112,7 @@
       "group": "Tools & data",
       "items": [
         "MySQL",
+        "PostgreSQL",
         "Redis",
         "Git",
         "Telegram Bot API",
