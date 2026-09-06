@@ -5,18 +5,11 @@
     <div class="absolute top-1/2 right-0 w-64 h-64 bg-orange-400/10 dark:bg-orange-400/8 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
 
     <div class="max-w-3xl space-y-6 animate-fade-in-up">
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 text-amber-600 dark:text-amber-400 text-sm font-medium">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-        </span>
-        Welcome to my portfolio
-      </div>
 
       <!-- Main Heading -->
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-        Hi, I'm <span class="text-gradient">Miqayel<br/>Petrosyan</span>
+      <h1 class="text-5xl font-bold tracking-tight leading-[1.5]">
+        <span class="text-gradient md:text-7xl">MiqayelPetrosyan</span><br/>
+        <span class="text-slate-900 dark:text-white md:text-6xl ">Fullstack developer</span>
       </h1>
 
       <!-- Sub -->
@@ -49,3 +42,5 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 </style>
+<script setup lang="ts">
+</script>

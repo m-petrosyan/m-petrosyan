@@ -16,7 +16,7 @@ const projects = [
     links: [
       { text: 'View Project', href: 'https://chromewebstore.google.com/detail/iglecoggkeflbcacbehhllldghgchipl?utm_source=item-share-cb' },
     ]
-  }, 
+  },
   {
     title: 'SheriffBot',
     description: 'Telegram assistant for managing channels and groups. Features post scheduling with repeat options, anti-spam moderation, AI-powered chat summaries, analytics tracking, subscriber growth insights, and a visual content calendar.',

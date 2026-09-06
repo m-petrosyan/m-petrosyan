@@ -1,5 +1,5 @@
 <template>
-  <section class="py-10">
+  <section class="py-8">
     <div class="glass-card max-w-4xl mx-auto p-8 md:p-12 relative overflow-hidden">
       <!-- Glow -->
       <div class="absolute -top-24 -right-24 w-48 h-48 bg-rose-500/20 rounded-full blur-[80px] pointer-events-none"></div>
