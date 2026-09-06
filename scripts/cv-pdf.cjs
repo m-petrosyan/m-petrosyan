@@ -1,35 +1,109 @@
-// Shared CV → PDF generator (pdfmake). Used both by the Nitro build hook
-// (nuxt.config.ts) and standalone: `node scripts/cv-pdf.cjs`
+// CV → PDF generator (pdfmake 0.3). Used by the Nitro build hook (nuxt.config.ts)
+// and standalone: `node scripts/cv-pdf.cjs`.
+// Design mirrors the "Arthur Melikyan" reference resume: Inter font, a thin
+// dark accent bar on the right page edge, and uppercase section titles with a
+// full-width gold underline. Data comes from data/cv.json.
 const { readFileSync, existsSync, writeFileSync, mkdirSync } = require('node:fs')
 const { join } = require('node:path')
 
-const esc = (s) => String(s || '')
+const esc = (s) => String(s ?? '')
 
-// Skills are rendered as plain wrapped text (pdfmake cannot draw padded,
-// rounded “tag” boxes — text backgrounds always hug the glyphs — so boxes
-// render cramped and broken). Bold skill names with gold dot separators keep
-// the section readable and echo the tag-cloud look of the website.
-function skillLine(items) {
-  const parts = []
-  items.forEach((s, i) => {
-    if (i > 0) parts.push({ text: '   •   ', style: 'skillSep' })
-    parts.push({ text: esc(s), style: 'skillName' })
-  })
-  return parts
+// palette from the reference PDF
+const INK = '#14161C'   // (20,22,28)  main text / headers
+const SUB = '#4A4F5A'   // (74,79,90)  secondary text
+const MUTE = '#8C919C'  // (140,145,156) meta text
+const GOLD = '#FED136'  // (254,209,54) accent
+
+const PAGE_W = 595.28 // A4
+const PAGE_H = 841.89
+const MARGIN_X = 45
+const CONTENT_W = PAGE_W - MARGIN_X * 2
+
+// right-edge accent bar, drawn on every page behind the content
+const accentBar = {
+  canvas: [
+    { type: 'rect', x: PAGE_W - 4, y: 0, w: 3, h: PAGE_H, color: INK },
+  ],
+  absolutePosition: { x: 0, y: 0 },
 }
 
-// Contact rows — small gold square bullet drawn with canvas (Roboto has no
-// emoji glyphs, so the old 📧🌐💻🔗✈️ rendered as broken grey boxes).
-function contactRow(value) {
+function sectionTitle(text) {
   return {
-    columns: [
+    stack: [
       {
-        canvas: [{ type: 'rect', x: 0, y: 4, w: 5, h: 5, color: '#f5c542' }],
-        width: 14,
+        text: esc(text).toUpperCase(),
+        fontSize: 11.5,
+        bold: true,
+        font: 'InterBold',
+        color: INK,
+        letterSpacing: 1.1,
+        margin: [0, 0, 0, 4],
       },
-      { text: esc(value), style: 'contactItem' },
+      { canvas: [{ type: 'rect', x: 0, y: 0, w: CONTENT_W, h: 1.1, color: GOLD }], margin: [0, 0, 0, 0] },
     ],
-    margin: [10, 2, 10, 2],
+    margin: [0, 16, 0, 12],
+  }
+}
+
+const bodyStyle = { fontSize: 9.6, lineHeight: 1.4, color: INK }
+
+function skillLineEl(group) {
+  return {
+    text: [
+      { text: esc(group.group) + ': ', fontSize: 9.7, bold: true, color: INK },
+      { text: group.items.map(esc).join(', '), fontSize: 9.7, color: INK },
+    ],
+    margin: [0, 0, 0, 5],
+  }
+}
+
+// Contact line parts — clickable links, displayed without protocol/www
+function contactParts(cv) {
+  const b = cv.basics || {}
+  const parts = []
+  if (b.email) {
+    parts.push({ text: esc(b.email), link: 'mailto:' + esc(b.email) })
+  }
+  if (b.phone) parts.push({ text: esc(b.phone) })
+  if (b.location) parts.push({ text: esc(b.location) })
+  const clean = (u) => String(u || '').replace(/^https?:\/\//, '').replace(/^www\./, '')
+  const links = []
+  if (b.website) links.push({ text: clean(b.website), link: esc(b.website) })
+  if (b.github) links.push({ text: clean(b.github), link: esc(b.github) })
+  if (b.linkedin) links.push({ text: clean(b.linkedin), link: esc(b.linkedin) })
+  if (b.telegram) links.push({ text: clean(b.telegram), link: esc(b.telegram) })
+  return { parts, links }
+}
+
+function joinSep(items, sep = { text: ' | ' }) {
+  const out = []
+  items.forEach((it, i) => {
+    if (i > 0) out.push({ ...sep, text: sep.text })
+    out.push(it)
+  })
+  return out
+}
+
+// zero-padding borderless table whose single row never splits across pages —
+// used to keep a section title / job heading with its first line of content
+const keepLayout = {
+  hLineWidth: () => 0,
+  vLineWidth: () => 0,
+  paddingLeft: () => 0,
+  paddingRight: () => 0,
+  paddingTop: () => 0,
+  paddingBottom: () => 0,
+}
+
+function keepTogether(elements) {
+  return {
+    table: {
+      widths: ['*'],
+      dontBreakRows: true,
+      body: [[{ stack: elements }]],
+    },
+    layout: keepLayout,
+    margin: [0, 0, 0, 0],
   }
 }
 
@@ -37,237 +111,191 @@ function buildDocDefinition(cv) {
   const b = cv.basics || {}
   const content = []
 
+  // ---------------------------------------------------------------- header
   content.push({
-    text: [
-      { text: esc(b.name), style: 'name' },
-      { text: '\n' },
-      { text: esc(b.title), style: 'title' },
+    stack: [
+      { text: esc(b.name), fontSize: 27, bold: true, font: 'InterBold', color: INK },
+      { text: esc(b.title), fontSize: 12.5, color: SUB, margin: [0, 5, 0, 0] },
+      ...(b.roleBadge
+        ? [{ text: esc(b.roleBadge), fontSize: 9.5, color: MUTE, margin: [0, 7, 0, 0] }]
+        : []),
+      {
+        canvas: [{ type: 'rect', x: 0, y: 0, w: 40, h: 2.5, color: GOLD }],
+        margin: [0, 10, 0, 8],
+      },
     ],
-    alignment: 'center',
-    margin: [0, 0, 0, 20],
+    margin: [0, 0, 0, 6],
   })
 
-  if (b.roleBadge) {
+  const { parts, links } = contactParts(cv)
+  if (parts.length) {
     content.push({
-      text: esc(b.roleBadge),
-      style: 'badge',
-      alignment: 'center',
-      margin: [0, 0, 0, 20],
-    })
-  }
-
-  const contactParts = []
-  if (b.email) contactParts.push(esc(b.email))
-  if (b.phone) contactParts.push(esc(b.phone))
-  if (b.location) contactParts.push(esc(b.location))
-  if (contactParts.length) {
-    content.push({
-      text: contactParts.join('  |  '),
+      text: joinSep(parts, { text: ' | ', style: 'contact' }),
       style: 'contact',
-      alignment: 'center',
-      margin: [0, 0, 0, 30],
+      margin: [0, 0, 0, 2],
+    })
+  }
+  if (links.length) {
+    content.push({
+      text: joinSep(links, { text: ' | ', style: 'contact' }),
+      style: 'contact',
+      margin: [0, 0, 0, 0],
     })
   }
 
+  // -------------------------------------------------------------- summary
   if (b.summary?.length) {
-    content.push({ text: 'Objective', style: 'sectionTitle', margin: [0, 0, 0, 8] })
-    b.summary.forEach((s) => {
-      content.push({ text: esc(s), style: 'body', margin: [10, 0, 10, 4] })
+    const title = sectionTitle('Professional Summary')
+    const first = { text: esc(b.summary[0]), style: 'body', margin: [0, 0, 0, 6] }
+    content.push(keepTogether([title, first]))
+    b.summary.slice(1).forEach((s) => {
+      content.push({ text: esc(s), style: 'body', margin: [0, 0, 0, 6] })
     })
-    content.push({ text: '', margin: [0, 0, 0, 10] })
-  }
-
-  if (b.highlights?.length) {
-    b.highlights.forEach((h) => {
-      content.push({
-        text: [
-          { text: '• ', style: 'bullet' },
-          { text: esc(h), style: 'body' },
-        ],
-        margin: [10, 0, 10, 2],
-      })
-    })
-    content.push({ text: '', margin: [0, 0, 0, 10] })
-  }
-
-  if (cv.experience?.length) {
-    content.push({ text: 'Professional Experience', style: 'sectionTitle', margin: [0, 0, 0, 8] })
-    cv.experience.forEach((job, i) => {
-      content.push({
-        text: [
-          { text: esc(job.role), style: 'role' },
-          { text: ' — ' + esc(job.company), style: 'company' },
-        ],
-        margin: [10, 0, 10, 2],
-      })
-      if (job.period) {
+    if (b.highlights?.length) {
+      content.push({ text: '', margin: [0, 2, 0, 0] })
+      b.highlights.forEach((h) => {
         content.push({
-          text: esc(job.period),
-          style: 'period',
-          margin: [10, 0, 10, 4],
+          text: [{ text: '•  ', color: SUB, bold: true }, { text: esc(h), style: 'body' }],
+          margin: [0, 0, 0, 4],
         })
-      }
-      if (job.bullets?.length) {
-        job.bullets.forEach((bullet) => {
-          content.push({
+      })
+    }
+  }
+
+  // ------------------------------------------------------------ experience
+  if (cv.experience?.length) {
+    const title = sectionTitle('Professional Experience')
+    content.push(keepTogether([title]))
+    cv.experience.forEach((job, i) => {
+      const rightSide = [job.location, job.period].filter(Boolean).join('  |  ')
+      const header = {
+        columns: [
+          {
             text: [
-              { text: '• ', style: 'bullet' },
-              { text: esc(bullet), style: 'body' },
+              { text: esc(job.company), fontSize: 11, bold: true, font: 'InterBold', color: INK },
+              job.role ? { text: '  —  ' + esc(job.role), fontSize: 10.5, color: SUB } : {},
             ],
-            margin: [10, 0, 10, 2],
-            indent: 10,
-          })
-        })
+          },
+          rightSide
+            ? { text: esc(rightSide), fontSize: 9.5, color: MUTE, alignment: 'right' }
+            : {},
+        ],
+        margin: [0, 0, 0, 5],
       }
+
+      const noteEl = job.note
+        ? {
+            text: esc(job.note),
+            fontSize: 8.8,
+            italics: true,
+            color: MUTE,
+            margin: [0, 0, 0, 5],
+          }
+        : null
+
+      const bullets = job.bullets?.length ? job.bullets : []
+      const firstBulletEl = bullets.length
+        ? {
+            text: [{ text: '•  ', color: SUB }, { text: esc(bullets[0]), style: 'body' }],
+            margin: [0, 0, 0, 4],
+          }
+        : null
+
+      // keep heading + note + first bullet together across page breaks
+      content.push(keepTogether([header, noteEl, firstBulletEl].filter(Boolean)))
+
+      bullets.slice(1).forEach((bullet) => {
+        content.push({
+          text: [{ text: '•  ', color: SUB }, { text: esc(bullet), style: 'body' }],
+          margin: [0, 0, 0, 4],
+        })
+      })
+
       if (job.stack) {
         content.push({
-          text: 'STACK: ' + esc(job.stack),
-          style: 'stack',
-          margin: [10, 0, 10, 6],
+          text: [
+            { text: 'Technologies: ', fontSize: 9, bold: true, color: SUB },
+            { text: esc(job.stack), fontSize: 9, color: SUB },
+          ],
+          margin: [0, 1, 0, i < cv.experience.length - 1 ? 11 : 0],
         })
       }
-      if (i < cv.experience.length - 1) {
-        content.push({ text: '', margin: [0, 0, 0, 8] })
-      }
     })
-    content.push({ text: '', margin: [0, 0, 0, 10] })
   }
 
+  // --------------------------------------------------------------- skills
   if (cv.skills?.length) {
-    content.push({ text: 'Technical Skills', style: 'sectionTitle', pageBreak: 'before', margin: [0, 0, 0, 8] })
-    cv.skills.forEach((group, gi) => {
-      if (group.group) {
-        content.push({
-          text: esc(group.group).toUpperCase(),
-          style: 'groupLabel',
-          margin: [10, 0, 0, 4],
-        })
-      }
-      if (group.items?.length) {
-        content.push({
-          text: skillLine(group.items),
-          margin: [10, 2, 10, gi < cv.skills.length - 1 ? 8 : 10],
-        })
-      }
+    const title = sectionTitle('Technical Skills')
+    const groups = cv.skills.filter((g) => g.items?.length)
+    const firstGroup = groups.length ? skillLineEl(groups[0]) : null
+    content.push(keepTogether([title, firstGroup].filter(Boolean)))
+    groups.slice(1).forEach((group) => {
+      content.push(skillLineEl(group))
     })
-    content.push({ text: '', margin: [0, 0, 0, 10] })
   }
 
-  if (cv.languages?.length) {
-    content.push({ text: 'Languages', style: 'sectionTitle', margin: [0, 0, 0, 8] })
-    cv.languages.forEach((l, i) => {
-      content.push({
-        text: [
-          { text: esc(l.name) + '  ', style: 'langName' },
-          { text: esc(l.proficiency), style: 'langLevel' },
-        ],
-        style: 'langItem',
-        margin: [0, 2, 10, 2],
-      })
-      if (i < cv.languages.length - 1) {
-        content.push({ text: '', margin: [0, 0, 0, 2] })
-      }
-    })
-    content.push({ text: '', margin: [0, 0, 0, 10] })
-  }
-
+  // ------------------------------------------------------------- education
   if (cv.education?.length) {
-    content.push({ text: 'Education', style: 'sectionTitle', margin: [0, 0, 0, 8] })
-    cv.education.forEach((ed, i) => {
-      content.push({
-        text: esc(ed.title),
-        style: 'eduTitle',
-        margin: [10, 0, 0, 2],
-      })
-      if (ed.place) {
-        content.push({
-          text: esc(ed.place),
-          style: 'eduPlace',
-          margin: [10, 0, 0, 2],
-        })
-      }
-      if (ed.period) {
-        content.push({
-          text: esc(ed.period),
-          style: 'eduPeriod',
-          margin: [10, 0, 10, 6],
-        })
-      }
-      if (i < cv.education.length - 1) {
-        content.push({ text: '', margin: [0, 0, 0, 4] })
-      }
-    })
-    content.push({ text: '', margin: [0, 0, 0, 10] })
+    const title = sectionTitle('Education')
+    const first = eduLine(cv.education[0])
+    content.push(keepTogether([title, first].filter(Boolean)))
+    cv.education.slice(1).forEach((ed) => content.push(eduLine(ed)))
   }
 
+  function eduLine(ed) {
+    const parts = []
+    if (ed.place) parts.push({ text: esc(ed.place), bold: true, font: 'InterBold', color: INK })
+    if (ed.title) parts.push({ text: esc(ed.title), color: SUB })
+    if (ed.period) parts.push({ text: esc(ed.period), color: MUTE })
+    if (!parts.length) return null
+    return { text: joinSep(parts, { text: ' — ' }), fontSize: 9.7, margin: [0, 0, 0, 5] }
+  }
+
+  // --------------------------------------------------------- certifications
   if (cv.certifications?.length) {
-    content.push({ text: 'Certifications', style: 'sectionTitle', margin: [0, 0, 0, 8] })
-    cv.certifications.forEach((c, i) => {
-      content.push({
-        text: esc(c.title),
-        style: 'certTitle',
-        margin: [10, 0, 0, 2],
-      })
-      if (c.place) {
-        content.push({
-          text: esc(c.place),
-          style: 'certPlace',
-          margin: [10, 0, 0, 2],
-        })
-      }
-      if (c.period) {
-        content.push({
-          text: esc(c.period),
-          style: 'certPeriod',
-          margin: [10, 0, 10, 6],
-        })
-      }
-      if (i < cv.certifications.length - 1) {
-        content.push({ text: '', margin: [0, 0, 0, 4] })
-      }
-    })
-    content.push({ text: '', margin: [0, 0, 0, 10] })
+    const title = sectionTitle('Certifications')
+    const first = certLine(cv.certifications[0])
+    content.push(keepTogether([title, first].filter(Boolean)))
+    cv.certifications.slice(1).forEach((c) => content.push(certLine(c)))
   }
 
-  content.push({ text: 'Contact', style: 'sectionTitle', margin: [0, 0, 0, 8] })
-  if (b.email) content.push(contactRow(b.email))
-  if (b.website) content.push(contactRow(b.website))
-  if (b.github) content.push(contactRow(b.github))
-  if (b.linkedin) content.push(contactRow(b.linkedin))
-  if (b.telegram) content.push(contactRow(b.telegram))
+  function certLine(c) {
+    const parts = []
+    if (c.title) parts.push({ text: esc(c.title), bold: true, font: 'InterBold', color: INK })
+    if (c.place) parts.push({ text: esc(c.place), color: SUB })
+    if (c.period) parts.push({ text: esc(c.period), color: MUTE })
+    if (!parts.length) return null
+    return { text: joinSep(parts, { text: ', ' }), fontSize: 9.7, margin: [0, 0, 0, 5] }
+  }
 
-  const docDefinition = {
+  // ------------------------------------------------------------- languages
+  if (cv.languages?.length) {
+    const title = sectionTitle('Languages')
+    const line = {
+      text: joinSep(
+        cv.languages.map((l) => ({
+          text: esc(l.name) + (l.proficiency ? ' (' + esc(l.proficiency) + ')' : ''),
+        })),
+        { text: ', ' }
+      ),
+      fontSize: 9.7,
+      color: INK,
+      margin: [0, 0, 0, 4],
+    }
+    content.push(keepTogether([title, line]))
+  }
+
+  return {
+    pageSize: { width: PAGE_W, height: PAGE_H },
+    pageMargins: [MARGIN_X, 40, MARGIN_X, 40],
+    background: [accentBar],
     content,
     styles: {
-      name: { fontSize: 28, bold: true, color: '#0b0f17', font: 'Roboto' },
-      title: { fontSize: 14, color: '#555', font: 'Roboto', margin: [0, 4, 0, 0] },
-      badge: { fontSize: 10, color: '#0b0f17', background: '#f5c542', bold: true, padding: [4, 8], borderRadius: 3, alignment: 'center', margin: [0, 0, 0, 20], font: 'Roboto' },
-      contact: { fontSize: 11, color: '#777', font: 'Roboto' },
-      sectionTitle: { fontSize: 13, bold: true, color: '#f5c542', textTransform: 'uppercase', letterSpacing: 1.5, margin: [0, 0, 0, 8], font: 'Roboto' },
-      body: { fontSize: 11, color: '#333', font: 'Roboto', lineHeight: 1.4 },
-      bullet: { fontSize: 11, color: '#f5c542', font: 'Roboto' },
-      role: { fontSize: 13, bold: true, color: '#0b0f17', font: 'Roboto' },
-      company: { fontSize: 11, color: '#f5c542', font: 'Roboto' },
-      period: { fontSize: 9, color: '#777', font: 'Roboto' },
-      stack: { fontSize: 9, color: '#666', font: 'Roboto', italics: true },
-      groupLabel: { fontSize: 9, bold: true, color: '#999', textTransform: 'uppercase', letterSpacing: 1, font: 'Roboto' },
-      skillName: { fontSize: 10, color: '#1b222d', font: 'Roboto' },
-      skillSep: { fontSize: 10, color: '#f5c542', font: 'Roboto' },
-      langName: { fontSize: 11, bold: true, color: '#0b0f17', font: 'Roboto' },
-      langLevel: { fontSize: 10, color: '#f5c542', font: 'Roboto' },
-      langItem: { font: 'Roboto' },
-      eduTitle: { fontSize: 11, bold: true, color: '#0b0f17', font: 'Roboto' },
-      eduPlace: { fontSize: 9, color: '#aaa', font: 'Roboto' },
-      eduPeriod: { fontSize: 10, color: '#777', font: 'Roboto' },
-      certTitle: { fontSize: 11, bold: true, color: '#0b0f17', font: 'Roboto' },
-      certPlace: { fontSize: 9, color: '#aaa', font: 'Roboto' },
-      certPeriod: { fontSize: 10, color: '#777', font: 'Roboto' },
-      contactItem: { fontSize: 10, color: '#333', font: 'Roboto' },
+      body: bodyStyle,
+      contact: { fontSize: 8.8, color: SUB },
     },
-    defaultStyle: { font: 'Roboto', fontSize: 11, lineHeight: 1.4 },
+    defaultStyle: { font: 'Inter', fontSize: 9.6, lineHeight: 1.4, color: INK },
   }
-
-  return docDefinition
 }
 
 function generateCvPdf({ cvPath, publicDir, outputPublicDir } = {}) {
@@ -279,8 +307,20 @@ function generateCvPdf({ cvPath, publicDir, outputPublicDir } = {}) {
 
   try {
     const pdfMake = require('pdfmake')
-    const Roboto = require('pdfmake/fonts/Roboto.js')
-    pdfMake.fonts = Roboto
+    pdfMake.fonts = {
+      Inter: {
+        normal: join(__dirname, 'fonts', 'Inter-Regular.ttf'),
+        bold: join(__dirname, 'fonts', 'Inter-SemiBold.ttf'),
+        italics: join(__dirname, 'fonts', 'Inter-Regular.ttf'),
+        bolditalics: join(__dirname, 'fonts', 'Inter-SemiBold.ttf'),
+      },
+      InterBold: {
+        normal: join(__dirname, 'fonts', 'Inter-Bold.ttf'),
+        bold: join(__dirname, 'fonts', 'Inter-Bold.ttf'),
+        italics: join(__dirname, 'fonts', 'Inter-Bold.ttf'),
+        bolditalics: join(__dirname, 'fonts', 'Inter-Bold.ttf'),
+      },
+    }
 
     const docDefinition = buildDocDefinition(cv)
     const pdf = pdfMake.createPdf(docDefinition)
