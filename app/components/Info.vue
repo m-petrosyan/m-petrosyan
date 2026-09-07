@@ -8,7 +8,7 @@
 
       <!-- Main Heading -->
       <h1 class="text-5xl font-bold tracking-tight  md:leading-[1.5]">
-        <span class="text-gradient text-3xl md:text-7xl">MiqayelPetrosyan</span><br/>
+        <span class="text-gradient text-3xl md:text-7xl">Miqayel Petrosyan</span><br/>
         <span class="text-slate-900 text-2xl  dark:text-white md:text-6xl ">Fullstack developer</span>
       </h1>
 
