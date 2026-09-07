@@ -7,9 +7,9 @@
     <div class="max-w-3xl space-y-6 animate-fade-in-up">
 
       <!-- Main Heading -->
-      <h1 class="text-5xl font-bold tracking-tight leading-[1.5]">
-        <span class="text-gradient md:text-7xl">MiqayelPetrosyan</span><br/>
-        <span class="text-slate-900 dark:text-white md:text-6xl ">Fullstack developer</span>
+      <h1 class="text-5xl font-bold tracking-tight  md:leading-[1.5]">
+        <span class="text-gradient text-3xl md:text-7xl">MiqayelPetrosyan</span><br/>
+        <span class="text-slate-900 text-2xl  dark:text-white md:text-6xl ">Fullstack developer</span>
       </h1>
 
       <!-- Sub -->
